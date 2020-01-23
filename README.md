@@ -28,6 +28,8 @@ execute command as below to save person record
 
 curl -d "{\"person\": [{\"first_name\": \"Emran\",\"last_name\": \"Khan\",\"age\": \"35\",\"favourite_colour\": \"Green\",\"hobby\": [\"cricket\", \"volleyball\"]}]}" -H "Content-Type: application/json" http://localhost:9090/persons/save
 
+curl -d "{\"person\": [{\"first_name\": \"John\",\"last_name\": \"Keynes\",\"age\": \"29\",\"favourite_colour\": \"red\",\"hobby\": [\"shopping\", \"football\"]},{\"first_name\": \"Sarah\",\"last_name\": \"Robinson\",\"age\": \"54\",\"favourite_colour\": \"blue\",\"hobby\": [\"chess\"]}]}" -H "Content-Type: application/json" http://localhost:9090/persons/save
+
 2- List All Person Records
 
 curl -v localhost:9090/persons/showall
