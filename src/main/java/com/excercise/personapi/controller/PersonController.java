@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.excercise.personapi.exception.NoDataFoundException;
-import com.excercise.personapi.model.PersonEntity;
+import com.excercise.personapi.model.Person;
+import com.excercise.personapi.model.Persons;
 import com.excercise.personapi.service.PersonService;
 
 @RestController
@@ -24,32 +25,31 @@ public class PersonController
     PersonService service;
     
     @GetMapping("/find/{id}")
-    public PersonEntity findPersonById(@PathVariable("id") Long id) throws NoDataFoundException {
-    	PersonEntity entity = service.getPersonById(id);
+    public Person findPersonById(@PathVariable("id") Long id) throws NoDataFoundException {
+    	Person entity = service.getPersonById(id);
         return entity;
     }
     
-    @GetMapping
-    public List<PersonEntity> listAllPersons() {
-        List<PersonEntity> list = (List<PersonEntity>)service.getAllPerson();
+    @GetMapping("showall")
+    public List<Person> listAllPersons() {
+        List<Person> list = (List<Person>)service.getAllPerson();
         return list;
     }
     
-    @PostMapping("/add")
-    public Long addPerson(@RequestBody PersonEntity person) {
-        Long id = service.addPerson(person);
-        return id;
+    @PostMapping("/save")
+    public void savePerson(@RequestBody Persons persons) {
+    	service.savePersons(persons);        
     }
-    
+        
     @PostMapping("/update")
-    public PersonEntity updatePerson(@RequestBody PersonEntity person) throws NoDataFoundException {
-        PersonEntity updated = service.updatePerson(person);
+    public Person updatePerson(@RequestBody Person person) throws NoDataFoundException {
+        Person updated = service.updatePerson(person);
         return updated;
     }
     
     @DeleteMapping("/delete/{id}")
     public HttpStatus deletePerson(@PathVariable("id") Long id) throws NoDataFoundException {
-        service.deletePerson(id);
+        service.deletePersonById(id);
         return HttpStatus.OK;
     }
 }

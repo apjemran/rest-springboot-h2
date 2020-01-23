@@ -8,7 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.excercise.personapi.exception.NoDataFoundException;
-import com.excercise.personapi.model.PersonEntity;
+import com.excercise.personapi.model.Person;
+import com.excercise.personapi.model.Persons;
 import com.excercise.personapi.repository.PersonRepository;
  
 @Service
@@ -17,9 +18,9 @@ public class PersonServiceImpl implements PersonService{
     @Autowired
     PersonRepository repository;
    
-    public PersonEntity getPersonById(Long id) throws NoDataFoundException
+    public Person getPersonById(Long id) throws NoDataFoundException
     {
-        Optional<PersonEntity> person = repository.findById(id);         
+        Optional<Person> person = repository.findById(id);         
         if(person.isPresent()) {
             return person.get();
         } else {
@@ -27,29 +28,27 @@ public class PersonServiceImpl implements PersonService{
         }
     }
     
-    public List<PersonEntity> getAllPerson()
+    public List<Person> getAllPerson()
     {
-        List<PersonEntity> persons = repository.findAll();         
+        List<Person> persons = repository.findAll();         
         if(persons.size() > 0) {
             return persons;
         } else {
-            return new ArrayList<PersonEntity>();
+            return new ArrayList<Person>();
         }
     }
      
-    public PersonEntity updatePerson(PersonEntity entity) throws NoDataFoundException
+    public Person updatePerson(Person entity) throws NoDataFoundException
     {
-        Optional<PersonEntity> employee = repository.findById(entity.getId());
-         
-        if(employee.isPresent())
+        Optional<Person> person = repository.findById(entity.getId());
+        if(person.isPresent())
         {
-            PersonEntity newEntity = employee.get();            
+            Person newEntity = person.get();            
             newEntity.setFirstName(entity.getFirstName());
             newEntity.setLastName(entity.getLastName());
             newEntity.setAge(entity.getAge());
             newEntity.setFavouriteColour(entity.getFavouriteColour());
-            newEntity.setHobby(entity.getHobby());
- 
+            newEntity.setHobby(entity.getHobby()); 
             newEntity = repository.save(newEntity);
              
             return newEntity;
@@ -58,20 +57,25 @@ public class PersonServiceImpl implements PersonService{
         }
     }
     
-	public Long addPerson(PersonEntity entity) {
-		entity = repository.save(entity);
-		return entity.getId();
+    @Override
+	public void savePersons(Persons persons) {
+		List<Person> personList = persons.getPerson();
+		for (Person person : personList) {
+			repository.save(person);
+		}
 	}   
-     
-    public void deletePerson(Long id) throws NoDataFoundException
+    
+    @Override
+    public void deletePersonById(Long id) throws NoDataFoundException
     {
-        Optional<PersonEntity> person = repository.findById(id);
-         
+        Optional<Person> person = repository.findById(id);  
         if(person.isPresent())
         {
-            repository.deleteById(id);
+           repository.deleteById(id);
         } else {
             throw new NoDataFoundException("No person found with id "+ id);
         }
     }
+	
+	
 }

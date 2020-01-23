@@ -3,19 +3,20 @@ package com.excercise.personapi.service;
 import java.util.List;
 
 import com.excercise.personapi.exception.NoDataFoundException;
-import com.excercise.personapi.model.PersonEntity;
+import com.excercise.personapi.model.Person;
+import com.excercise.personapi.model.Persons;
 
 public interface PersonService {
 	
-	public PersonEntity getPersonById(Long id) throws NoDataFoundException;
+	public Person getPersonById(Long id) throws NoDataFoundException;
 	
-	public List<PersonEntity> getAllPerson();
+	public List<Person> getAllPerson();
 	
-	public PersonEntity updatePerson(PersonEntity entity) throws NoDataFoundException;
+	public Person updatePerson(Person entity) throws NoDataFoundException;
 	
-	public Long addPerson(PersonEntity entity);
-	
-	public void deletePerson(Long id) throws NoDataFoundException;
+	public void deletePersonById(Long id) throws NoDataFoundException;
+
+	public void savePersons(Persons persons);
 	
 
 }
