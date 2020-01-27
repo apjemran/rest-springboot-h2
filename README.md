@@ -51,12 +51,17 @@ curl -d "{\"id\":2,\"first_name\":\"Sara\",\"last_name\": \"Jacob\",\"age\": 35,
 
 Open below url from your browser to access H2 Database Console. Leave the password blank and click on connect
 
-http://localhost:9090/h2db 
+http://localhost:9090/h2db
+
+
 
 ## Add password to H2DB
 To add password change below property in /src/main/resources/application.properties
 spring.datasource.password=
 
+## How to change port
+
+This rest api using port 9090 which is defined in appication.properties. If port 9090 is not free or some other application using this port, then change server.port value defined in /src/main/resources/application.properties
 
 ## Author
 
