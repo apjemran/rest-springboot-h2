@@ -37,8 +37,9 @@ public class PersonController
     }
     
     @PostMapping("/save")
-    public void savePerson(@RequestBody Persons persons) {
-    	service.savePersons(persons);        
+    public HttpStatus savePerson(@RequestBody Persons persons) {
+    	service.savePersons(persons);
+    	return HttpStatus.OK;
     }
         
     @PostMapping("/update")
